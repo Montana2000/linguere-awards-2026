@@ -1,0 +1,10 @@
+{
+  "description": "Découvrez les Linguères Awards 2026, leurs distinctions, expériences et engagements pour célébrer le leadership féminin africain et l’éducation des filles.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
