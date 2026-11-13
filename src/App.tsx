@@ -6,6 +6,7 @@ import model2 from '../MODEL 2.jpg'
 import model3 from '../MODEL 3.jpg'
 import enfantEdu from '../ENFANT EDU 2.jpg'
 import femmesLing from '../femmes ling.png'
+import yaayBoye from '../YAAY BOYE.jpeg'
 // New images from IMAGE WOMANS folder
 import woman1 from '../IMAGE WOMANS/portrait-african-woman-wearing-traditional-accessories-looking-away.jpg'
 import woman2 from '../IMAGE WOMANS/vibrant-portrait-person-bright-environment.jpg'
@@ -13,7 +14,7 @@ import woman3 from '../IMAGE WOMANS/young-woman-wearing-orange-dress-with-turban
 
 const images = {
   hero: 'https://images.unsplash.com/photo-1673447067622-bbc8a34e2c56?auto=format&fit=crop&w=2200&q=90',
-  manifesto: 'https://images.unsplash.com/photo-1712821125604-4ca6b1f86488?auto=format&fit=crop&w=1500&q=88',
+  manifesto: yaayBoye,
   heritage: model1,
   leadership: model2,
   future: model3,
@@ -580,9 +581,22 @@ const pageData: Record<string, { eyebrow: string; title: ReactNode; intro: strin
         CONVERSATION.
       </>
     ),
-    intro: 'Rendez-vous le 26 décembre 2026 au Noom Hotel Dakar Sea Plaza. Pour toute demande institutionnelle, média ou partenariat, notre équipe est à votre écoute.',
+    intro: 'Rendez-vous le 26 décembre 2026 au Noom Hotel Dakar Sea Plaza. Pour toute demande institutionnelle, média ou partenariat, notre équipe est à votre entière écoute.',
     image: images.future,
-    sections: [['Partenariats', 'Construisons une collaboration porteuse de sens autour de l’édition du 26 décembre 2026.'], ['Médias & presse', 'Recevez le dossier de presse et les accréditations officielles pour la cérémonie au Noom Hotel Dakar Sea Plaza.'], ['Lieu & Date officiels', 'Samedi 26 décembre 2026 au Noom Hotel Dakar Sea Plaza (Corniche Ouest, Dakar, Sénégal).']],
+    sections: [
+      [
+        'Coach Omaïssa – Omaïssa Trading',
+        'Téléphone : +221 77 860 48 45 · Email : omaissa.trading@gmail.com',
+      ],
+      [
+        'Yaye Fatou Sarr - Ailes',
+        'Téléphone : +221 77 140 39 03 / +221 77 151 99 75 · Email : contact@ailes.sn',
+      ],
+      [
+        'Coordination officielle Linguères Awards',
+        'Emails : linguereawards@gmail.com / omaissa.trading@gmail.com / contact@ailes.sn · Lieu officiel : Noom Hotel Dakar Sea Plaza (Corniche Ouest, Dakar, Sénégal).',
+      ],
+    ],
   },
 }
 
@@ -631,7 +645,24 @@ function Footer() {
         <Logo />
         <p>Racines & Couronnes<br />L’Afrique éduque ses filles,<br />élève ses reines.</p>
         <nav aria-label="Navigation de pied de page">{navItems.map(([label, href]) => <a href={href} key={href}>{label}</a>)}</nav>
-        <div><p>26 Décembre 2026<br />Noom Hotel Dakar Sea Plaza</p><a href="/contact">Prendre contact <Arrow /></a></div>
+        <div className="footer__contact-block">
+          <p className="footer__contact-lead">Contacts officiels</p>
+          <p className="footer__contact-names">
+            <strong>Coach Omaïssa</strong> – Omaïssa Trading<br />
+            <strong>Yaye Fatou Sarr</strong> - Ailes
+          </p>
+          <div className="footer__contact-group">
+            <a href="tel:+221778604845">+221 77 860 48 45</a>
+            <a href="tel:+221771403903">+221 77 140 39 03</a>
+            <a href="tel:+221771519975">+221 77 151 99 75</a>
+          </div>
+          <div className="footer__contact-group">
+            <a href="mailto:omaissa.trading@gmail.com">omaissa.trading@gmail.com</a>
+            <a href="mailto:linguereawards@gmail.com">linguereawards@gmail.com</a>
+            <a href="mailto:contact@ailes.sn">contact@ailes.sn</a>
+          </div>
+          <a className="footer__contact-cta" href="/contact">Prendre contact <Arrow /></a>
+        </div>
       </div>
       <div className="footer__bottom"><span>© 2026 Linguères Awards</span><a href="/">Mentions légales</a><a href="/">Confidentialité</a><span>26 Déc. 2026 · Noom Hotel Dakar</span></div>
     </footer>
