@@ -1,7 +1,12 @@
 {
+  "title": "Linguères Awards 2026 — Racines & Couronnes",
   "description": "Découvrez les Linguères Awards 2026, leurs distinctions, expériences et engagements pour célébrer le leadership féminin africain et l’éducation des filles.",
+  "language": "fr",
+  "icons": {
+    "icon": "/favicon.svg"
+  },
   "robots": {
-    "index": false
+    "index": true
   },
   "accessibility": {
     "addBypassLinks": false,

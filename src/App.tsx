@@ -613,7 +613,207 @@ const pageData: Record<string, { eyebrow: string; title: ReactNode; intro: strin
   },
 }
 
+type DistinctionItem = {
+  id: string
+  number: string
+  title: string
+  categoryGroup: 'education' | 'leadership' | 'creation' | 'special'
+  groupLabel: string
+  description: string
+  badge?: string
+}
+
+const DISTINCTIONS_DATA: DistinctionItem[] = [
+  {
+    id: 'africa-educates-her',
+    number: '01',
+    title: 'Prix AfricaEducatesHer',
+    categoryGroup: 'education',
+    groupLabel: 'Éducation & Impact',
+    description: 'Dédié aux initiatives et personnalités qui œuvrent pour l’accès des jeunes filles à une éducation d’excellence et leur autonomisation durable.',
+  },
+  {
+    id: 'leadership',
+    number: '02',
+    title: 'Prix Leadership & Influence engagée',
+    categoryGroup: 'leadership',
+    groupLabel: 'Leadership',
+    description: 'Célèbre les femmes d’influence qui mobilisent leurs compétences, leur voix et leurs réseaux au service de l’intérêt général.',
+  },
+  {
+    id: 'diaspora',
+    number: '03',
+    title: 'Prix Excellence de la Diaspora',
+    categoryGroup: 'leadership',
+    groupLabel: 'Diaspora',
+    description: 'Met en lumière les femmes de la diaspora africaine dont les réussites internationales créent des ponts féconds avec le continent.',
+  },
+  {
+    id: 'heritage',
+    number: '04',
+    title: 'Prix Héritage & Création',
+    categoryGroup: 'creation',
+    groupLabel: 'Culture & Patrimoine',
+    description: 'Valorise la sauvegarde des patrimoines, les arts visuels et la transmission des savoir-faire et récits ancestraux.',
+  },
+  {
+    id: 'sport',
+    number: '05',
+    title: 'Prix Sport & Performance Féminine',
+    categoryGroup: 'creation',
+    groupLabel: 'Sport & Dépassement',
+    description: 'Récompense les athlètes, techniciennes et dirigeantes qui incarnent la discipline, la performance et l’exemplarité sportive africaine.',
+  },
+  {
+    id: 'innovation',
+    number: '06',
+    title: 'Prix Innovation & Technologie Féminine',
+    categoryGroup: 'creation',
+    groupLabel: 'Tech & Futur',
+    description: 'Distingue les bâtisseuses de solutions technologiques novatrices répondant aux grands défis économiques et sociaux du continent.',
+  },
+  {
+    id: 'plume',
+    number: '07',
+    title: 'Prix Plume & Parole',
+    categoryGroup: 'creation',
+    groupLabel: 'Littérature & Médias',
+    description: 'Honore les écrivaines, journalistes et oratrices dont les mots éclairent les consciences et font progresser les représentations.',
+  },
+  {
+    id: 'batisseuse',
+    number: '08',
+    title: 'Prix Bâtisseuse d’impact',
+    categoryGroup: 'education',
+    groupLabel: 'Impact & Société',
+    description: 'Sacre les entrepreneures sociales et agentes de terrain déployant des actions concrètes et pérennes au cœur des communautés.',
+  },
+  {
+    id: 'revelation',
+    number: '09',
+    title: 'Prix Révélation de l’Année',
+    categoryGroup: 'leadership',
+    groupLabel: 'Émergence',
+    description: 'Met un coup de projecteur sur un talent féminin émergent dont l’ascension fulgurante et l’audace inspirent les nouvelles générations.',
+  },
+  {
+    id: 'yaayam',
+    number: '10',
+    title: 'Prix Yaayam',
+    categoryGroup: 'education',
+    groupLabel: 'Maternité & Famille',
+    description: 'Hommage vibrant à la figure maternelle et à la transmission familiale, socles de résilience, d’éducation première et d’équilibre.',
+  },
+  {
+    id: 'sante',
+    number: '11',
+    title: 'Prix Excellence Santé',
+    categoryGroup: 'education',
+    groupLabel: 'Santé & Bien-être',
+    description: 'Distingue les soignantes, médecins et chercheuses engagées pour la santé maternelle, infantile et la qualité des soins.',
+  },
+  {
+    id: 'art-scene',
+    number: '12',
+    title: 'Prix Spécial Art & Scène',
+    categoryGroup: 'special',
+    groupLabel: 'Distinction Spéciale',
+    badge: 'Distinction d’Honneur',
+    description: 'Hommage spécial aux grandes figures des arts de la scène, de la musique et du spectacle vivant qui font vibrer l’âme africaine.',
+  },
+  {
+    id: 'he-for-she',
+    number: '13',
+    title: 'Prix Spécial He For She',
+    categoryGroup: 'special',
+    groupLabel: 'Distinction Spéciale',
+    badge: 'Distinction d’Honneur',
+    description: 'Reconnaissance officielle décernée à un allié masculin engagé activement pour l’égalité des chances et l’éducation des filles.',
+  },
+]
+
+function DistinctionsPageContent() {
+  const [activeFilter, setActiveFilter] = useState<'all' | 'education' | 'leadership' | 'creation' | 'special'>('all')
+
+  const filterTabs = [
+    { key: 'all', label: 'Toutes les distinctions', count: DISTINCTIONS_DATA.length },
+    { key: 'education', label: 'Éducation & Société', count: 4 },
+    { key: 'leadership', label: 'Leadership & Diaspora', count: 3 },
+    { key: 'creation', label: 'Innovation & Culture', count: 4 },
+    { key: 'special', label: 'Distinctions d’Honneur', count: 2 },
+  ] as const
+
+  const items = activeFilter === 'all'
+    ? DISTINCTIONS_DATA
+    : DISTINCTIONS_DATA.filter((item) => item.categoryGroup === activeFilter)
+
+  return (
+    <section className="distinctions-expert-section">
+      <div className="distinctions-expert-container">
+        <div className="distinctions-expert-header">
+          <div className="distinctions-expert-header__left">
+            <span className="distinctions-expert-badge">Le Panthéon Officiel · Édition 2026</span>
+            <h2>LES DISTINCTIONS<br /><em>DU SACRE.</em></h2>
+            <p>11 Prix Officiels et 2 Distinctions d’Honneur pour consacrer l’excellence féminine panafricaine.</p>
+          </div>
+          <div className="distinctions-expert-stats-card">
+            <div>
+              <strong>13</strong>
+              <span>Distinctions</span>
+            </div>
+            <div className="distinctions-expert-stats-divider" />
+            <div>
+              <strong>26 DÉC.</strong>
+              <span>Dakar · Noom</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="distinctions-tabs-bar" role="tablist" aria-label="Filtrer les distinctions">
+          {filterTabs.map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              role="tab"
+              aria-selected={activeFilter === tab.key}
+              className={`distinctions-tab-btn ${activeFilter === tab.key ? 'distinctions-tab-btn--active' : ''}`}
+              onClick={() => setActiveFilter(tab.key)}
+            >
+              <span>{tab.label}</span>
+              <span className="distinctions-tab-count">{tab.count}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="distinctions-grid">
+          {items.map((item) => (
+            <article className="distinction-card-expert" key={item.id}>
+              <div className="distinction-card-expert__top">
+                <span className="distinction-card-expert__num">{item.number}</span>
+                <div className="distinction-card-expert__meta">
+                  <span className="distinction-card-expert__group">{item.groupLabel}</span>
+                  <h3 className="distinction-card-expert__title">{item.title}</h3>
+                </div>
+                {item.badge && (
+                  <span className="distinction-card-expert__special-pill">{item.badge}</span>
+                )}
+              </div>
+              <p className="distinction-card-expert__desc">{item.description}</p>
+              <div className="distinction-card-expert__footer">
+                <span className="distinction-card-expert__edition">Édition 2026 · Noom Hotel Dakar</span>
+                <a className="distinction-card-expert__link" href="#contact">Prendre part <Arrow /></a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function SecondaryPage({ data, currentPath }: { data: (typeof pageData)[string]; currentPath?: string }) {
+  const isDistinctions = currentPath === '/distinctions'
+
   return (
     <main className="inner-page">
       <Header currentPath={currentPath} />
@@ -627,54 +827,55 @@ function SecondaryPage({ data, currentPath }: { data: (typeof pageData)[string];
         </div>
       </section>
 
-      <section className="inner-content section">
-        <img className="inner-content__bg" src={femmesLing} alt="" aria-hidden="true" />
-        <div className="inner-content__veil" aria-hidden="true" />
+      {isDistinctions ? (
+        <DistinctionsPageContent />
+      ) : (
+        <section className="inner-content section">
+          <div className="inner-content__container">
+            <aside className="inner-content__sidebar">
+              <div className="inner-content__sticky-box">
+                <span className="inner-content__badge">Édition 2026 · 4e Édition</span>
+                <h3>L’EXCELLENCE<br /><em>AU FÉMININ.</em></h3>
+                <p>Une distinction d’honneur pour célébrer les trajectoires majeures qui élèvent et transforment l’Afrique.</p>
 
-        <div className="inner-content__container">
-          <aside className="inner-content__sidebar">
-            <div className="inner-content__sticky-box">
-              <span className="inner-content__badge">Édition 2026 · 4e Édition</span>
-              <h3>L’EXCELLENCE<br /><em>AU FÉMININ.</em></h3>
-              <p>Une distinction d’honneur pour célébrer les trajectoires majeures qui élèvent et transforment l’Afrique.</p>
-
-              <div className="inner-content__info-pill">
-                <div>
-                  <small>Cérémonie officielle</small>
-                  <strong>26 Décembre 2026</strong>
-                </div>
-                <div className="inner-content__pill-divider" />
-                <div>
-                  <small>Lieu d’exception</small>
-                  <strong>Noom Hotel Dakar</strong>
-                </div>
-              </div>
-
-              <a className="inner-content__action-link" href="#contact">
-                Nous contacter <Arrow />
-              </a>
-            </div>
-          </aside>
-
-          <div className="inner-content__list">
-            {data.sections.map(([title, copy], index) => {
-              const cleanTitle = title.replace(/^\d+\s*[—–-]\s*/, '')
-              const num = String(index + 1).padStart(2, '0')
-              return (
-                <article className="distinction-card" key={title}>
-                  <div className="distinction-card__header">
-                    <span className="distinction-card__num">{num}</span>
-                    <h2 className="distinction-card__title">{cleanTitle}</h2>
-                    <span className="distinction-card__tag">Édition 2026</span>
+                <div className="inner-content__info-pill">
+                  <div>
+                    <small>Cérémonie officielle</small>
+                    <strong>26 Décembre 2026</strong>
                   </div>
-                  <p className="distinction-card__copy">{copy}</p>
-                  <div className="distinction-card__line" aria-hidden="true" />
-                </article>
-              )
-            })}
+                  <div className="inner-content__pill-divider" />
+                  <div>
+                    <small>Lieu d’exception</small>
+                    <strong>Noom Hotel Dakar</strong>
+                  </div>
+                </div>
+
+                <a className="inner-content__action-link" href="#contact">
+                  Nous contacter <Arrow />
+                </a>
+              </div>
+            </aside>
+
+            <div className="inner-content__list">
+              {data.sections.map(([title, copy], index) => {
+                const cleanTitle = title.replace(/^\d+\s*[—–-]\s*/, '')
+                const num = String(index + 1).padStart(2, '0')
+                return (
+                  <article className="distinction-card" key={title}>
+                    <div className="distinction-card__header">
+                      <span className="distinction-card__num">{num}</span>
+                      <h2 className="distinction-card__title">{cleanTitle}</h2>
+                      <span className="distinction-card__tag">Édition 2026</span>
+                    </div>
+                    <p className="distinction-card__copy">{copy}</p>
+                    <div className="distinction-card__line" aria-hidden="true" />
+                  </article>
+                )
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <PartnerCta />
       <Footer />
