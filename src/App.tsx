@@ -547,7 +547,20 @@ const pageData: Record<string, { eyebrow: string; title: ReactNode; intro: strin
     ),
     intro: 'Onze prix officiels et deux distinctions spéciales pour honorer la pluralité des talents, des engagements et des trajectoires.',
     image: images.heritage,
-    sections: categories.slice(0, 6).map((item, index) => [`${String(index + 1).padStart(2, '0')} — Prix ${item}`, 'Les critères détaillés, modalités et échéances seront publiés par l’organisation lors de l’ouverture officielle.']) as [string, string][],
+    sections: [
+      ...categories.map((item) => [
+        `Prix ${item}`,
+        'Les critères détaillés, modalités de sélection et échéances seront publiés par l’organisation lors de l’ouverture officielle.',
+      ] as [string, string]),
+      [
+        'Prix Spécial Art & Scène',
+        'Célébration des parcours d’exception dans la création artistique, le spectacle vivant et la valorisation culturelle.',
+      ],
+      [
+        'Prix Spécial He For She',
+        'Reconnaissance des alliés masculins et institutions engagés concrètement pour l’égalité, l’autonomisation et l’éducation des filles.',
+      ],
+    ],
   },
   '/nominees': {
     eyebrow: 'Les visages des Linguères',
@@ -613,14 +626,56 @@ function SecondaryPage({ data, currentPath }: { data: (typeof pageData)[string];
           <p>{data.intro}</p>
         </div>
       </section>
+
       <section className="inner-content section">
-        <p className="inner-content__index">Linguères Awards 2026 <span /> 4e édition</p>
-        <div className="inner-content__list">
-          {data.sections.map(([title, copy], index) => (
-            <article key={title}><span>0{index + 1}</span><h2>{title}</h2><p>{copy}</p></article>
-          ))}
+        <img className="inner-content__bg" src={femmesLing} alt="" aria-hidden="true" />
+        <div className="inner-content__veil" aria-hidden="true" />
+
+        <div className="inner-content__container">
+          <aside className="inner-content__sidebar">
+            <div className="inner-content__sticky-box">
+              <span className="inner-content__badge">Édition 2026 · 4e Édition</span>
+              <h3>L’EXCELLENCE<br /><em>AU FÉMININ.</em></h3>
+              <p>Une distinction d’honneur pour célébrer les trajectoires majeures qui élèvent et transforment l’Afrique.</p>
+
+              <div className="inner-content__info-pill">
+                <div>
+                  <small>Cérémonie officielle</small>
+                  <strong>26 Décembre 2026</strong>
+                </div>
+                <div className="inner-content__pill-divider" />
+                <div>
+                  <small>Lieu d’exception</small>
+                  <strong>Noom Hotel Dakar</strong>
+                </div>
+              </div>
+
+              <a className="inner-content__action-link" href="#contact">
+                Nous contacter <Arrow />
+              </a>
+            </div>
+          </aside>
+
+          <div className="inner-content__list">
+            {data.sections.map(([title, copy], index) => {
+              const cleanTitle = title.replace(/^\d+\s*[—–-]\s*/, '')
+              const num = String(index + 1).padStart(2, '0')
+              return (
+                <article className="distinction-card" key={title}>
+                  <div className="distinction-card__header">
+                    <span className="distinction-card__num">{num}</span>
+                    <h2 className="distinction-card__title">{cleanTitle}</h2>
+                    <span className="distinction-card__tag">Édition 2026</span>
+                  </div>
+                  <p className="distinction-card__copy">{copy}</p>
+                  <div className="distinction-card__line" aria-hidden="true" />
+                </article>
+              )
+            })}
+          </div>
         </div>
       </section>
+
       <PartnerCta />
       <Footer />
     </main>
