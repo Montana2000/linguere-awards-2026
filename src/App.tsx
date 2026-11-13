@@ -32,7 +32,7 @@ const navItems = [
   ['Distinctions', '/distinctions'],
   ['Nominées', '/nominees'],
   ['Partenaires', '/partenaires'],
-  ['Contact', '/contact'],
+  ['Contact', '#contact'],
 ]
 
 const categories = [
@@ -108,7 +108,7 @@ function Header({ forceDark = false, currentPath }: { forceDark?: boolean; curre
           )
         })}
       </nav>
-      <a className="header-contact" href="/contact">Nous contacter <Arrow /></a>
+      <a className="header-contact" href="#contact">Nous contacter <Arrow /></a>
       <button className="menu-toggle" type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Ouvrir le menu">
         <span /><span />
       </button>
@@ -629,10 +629,10 @@ function SecondaryPage({ data, currentPath }: { data: (typeof pageData)[string];
 
 function PartnerCta() {
   return (
-    <section className="partner-cta">
+    <section className="partner-cta" id="partenaires">
       <p>Partenaires · Institutions · Médias · Mécènes</p>
       <h2>ENSEMBLE,<br /><em>ÉCRIVONS LA SUITE.</em></h2>
-      <ButtonLink href="/partenaires" light>Devenir partenaire</ButtonLink>
+      <ButtonLink href="#contact" light>Devenir partenaire</ButtonLink>
       <div className="crown-lines" aria-hidden="true"><i /><i /><i /><i /><i /></div>
     </section>
   )
@@ -640,28 +640,28 @@ function PartnerCta() {
 
 function Footer() {
   return (
-    <footer>
+    <footer id="contact">
       <div className="footer__top">
         <Logo />
         <p>Racines & Couronnes<br />L’Afrique éduque ses filles,<br />élève ses reines.</p>
         <nav aria-label="Navigation de pied de page">{navItems.map(([label, href]) => <a href={href} key={href}>{label}</a>)}</nav>
         <div className="footer__contact-block">
           <p className="footer__contact-lead">Contacts officiels</p>
-          <p className="footer__contact-names">
-            <strong>Coach Omaïssa</strong> – Omaïssa Trading<br />
-            <strong>Yaye Fatou Sarr</strong> - Ailes
-          </p>
-          <div className="footer__contact-group">
-            <a href="tel:+221778604845">+221 77 860 48 45</a>
-            <a href="tel:+221771403903">+221 77 140 39 03</a>
-            <a href="tel:+221771519975">+221 77 151 99 75</a>
+          <div className="footer__contact-names">
+            <p><strong>Coach Omaïssa</strong> · <span>Omaïssa Trading</span></p>
+            <p><strong>Yaye Fatou Sarr</strong> · <span>Ailes</span></p>
           </div>
-          <div className="footer__contact-group">
-            <a href="mailto:omaissa.trading@gmail.com">omaissa.trading@gmail.com</a>
-            <a href="mailto:linguereawards@gmail.com">linguereawards@gmail.com</a>
-            <a href="mailto:contact@ailes.sn">contact@ailes.sn</a>
+          <div className="footer__contact-group footer__contact-group--phones">
+            <a href="tel:+221778604845"><span className="footer__contact-icon">📞</span> +221 77 860 48 45</a>
+            <a href="tel:+221771403903"><span className="footer__contact-icon">📞</span> +221 77 140 39 03</a>
+            <a href="tel:+221771519975"><span className="footer__contact-icon">📞</span> +221 77 151 99 75</a>
           </div>
-          <a className="footer__contact-cta" href="/contact">Prendre contact <Arrow /></a>
+          <div className="footer__contact-group footer__contact-group--emails">
+            <a href="mailto:omaissa.trading@gmail.com"><span className="footer__contact-icon">✉</span> omaissa.trading@gmail.com</a>
+            <a href="mailto:linguereawards@gmail.com"><span className="footer__contact-icon">✉</span> linguereawards@gmail.com</a>
+            <a href="mailto:contact@ailes.sn"><span className="footer__contact-icon">✉</span> contact@ailes.sn</a>
+          </div>
+          <a className="footer__contact-cta" href="#contact">Prendre contact <Arrow /></a>
         </div>
       </div>
       <div className="footer__bottom"><span>© 2026 Linguères Awards</span><a href="/">Mentions légales</a><a href="/">Confidentialité</a><span>26 Déc. 2026 · Noom Hotel Dakar</span></div>
@@ -692,8 +692,19 @@ export default function App() {
       const href = target.getAttribute('href')
       if (!href) return
 
-      // Ignorer les ancres pures, liens externes ou protocoles
-      if (href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return
+      // Défilement fluide vers les ancres locales
+      if (href.startsWith('#')) {
+        const targetId = href.slice(1)
+        const el = document.getElementById(targetId)
+        if (el) {
+          e.preventDefault()
+          el.scrollIntoView({ behavior: 'smooth' })
+        }
+        return
+      }
+
+      // Ignorer liens externes ou protocoles
+      if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return
 
       if (href.startsWith('/')) {
         e.preventDefault()
