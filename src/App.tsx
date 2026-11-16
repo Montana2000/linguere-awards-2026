@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import NomineesPage from './NomineesPage'
+import JuryPage from './JuryPage'
 import logoLinguere from '../LOGO LINGUERE.png'
 import model1 from '../MODEL 1.jpg'
 import model2 from '../MODEL 2.jpg'
@@ -34,6 +35,7 @@ const navItems = [
   ['Expérience 2026', '/experience'],
   ['Distinctions', '/distinctions'],
   ['Nominées', '/nominees'],
+  ['Jury', '/jury'],
   ['Parrain & Marraine', '#parrain-marraine'],
   ['Partenaires', '/partenaires'],
   ['Contact', '#contact'],
@@ -104,7 +106,7 @@ function Header({ forceDark = false, currentPath }: { forceDark?: boolean; curre
     <header className={`site-header ${scrolled || forceDark ? 'site-header--solid' : ''}`}>
       <Logo />
       <nav className="nav-desktop" aria-label="Navigation principale">
-        {navItems.slice(0, 6).map(([label, href]) => {
+        {navItems.slice(0, 7).map(([label, href]) => {
           const isActive = href === '/' ? activePath === '/' : activePath === href
           return (
             <a key={href} href={href} className={isActive ? 'active' : ''}>
@@ -1195,6 +1197,18 @@ export default function App() {
         PartnerCtaComponent={PartnerCta}
         EyebrowComponent={Eyebrow}
         heroImage={images.portraitOne}
+      />
+    )
+  }
+
+  if (currentPath === '/jury') {
+    return (
+      <JuryPage
+        HeaderComponent={Header}
+        FooterComponent={Footer}
+        PartnerCtaComponent={PartnerCta}
+        EyebrowComponent={Eyebrow}
+        heroImage={images.leadership}
       />
     )
   }
