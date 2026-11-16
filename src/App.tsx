@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import NomineesPage from './NomineesPage'
 import logoLinguere from '../LOGO LINGUERE.png'
 import model1 from '../MODEL 1.jpg'
@@ -61,137 +61,6 @@ const stats = [
   ['3', 'projets féminins accompagnés'],
 ]
 
-// ─── Lecteur de musique kora ─────────────────────────────────────────────────
-// Kora instrumental africain (libre de droits via archive.org / freemusicarchive)
-const KORA_TRACKS = [
-  'https://archive.org/download/KoraMusic/kora_instrumental_africa_01.mp3',
-]
-
-function MusicPlayer() {
-  const [playing, setPlaying] = useState(false)
-  const [visible, setVisible] = useState(false)
-  const [dismissed, setDismissed] = useState(false)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
-
-  // Syntèse audio de kora via oscillateur Web Audio (fallback si URL inaccessible)
-  const audioCtxRef = useRef<AudioContext | null>(null)
-  const gainRef = useRef<GainNode | null>(null)
-  const oscillatorsRef = useRef<OscillatorNode[]>([])
-
-  const stopSynth = useCallback(() => {
-    oscillatorsRef.current.forEach((o) => { try { o.stop(); o.disconnect() } catch {} })
-    oscillatorsRef.current = []
-    gainRef.current?.disconnect()
-  }, [])
-
-  const startSynth = useCallback(() => {
-    if (!audioCtxRef.current) {
-      audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)()
-    }
-    const ctx = audioCtxRef.current
-    if (ctx.state === 'suspended') ctx.resume()
-
-    const gain = ctx.createGain()
-    gain.gain.setValueAtTime(0, ctx.currentTime)
-    gain.gain.linearRampToValueAtTime(0.07, ctx.currentTime + 1.5)
-    gain.connect(ctx.destination)
-    gainRef.current = gain
-
-    // Notes de kora simulées: La pentatonique africaine
-    const koraFreqs = [220, 246.94, 293.66, 329.63, 392, 440, 493.88, 523.25]
-    const oscs: OscillatorNode[] = []
-
-    koraFreqs.forEach((freq, i) => {
-      const osc = ctx.createOscillator()
-      osc.type = 'sine'
-      osc.frequency.setValueAtTime(freq, ctx.currentTime)
-
-      const oscGain = ctx.createGain()
-      oscGain.gain.setValueAtTime(0, ctx.currentTime)
-
-      // Pluck rhythm simulation
-      const beat = 2.4
-      for (let t = i * 0.18; t < 300; t += beat) {
-        oscGain.gain.setValueAtTime(0, ctx.currentTime + t)
-        oscGain.gain.linearRampToValueAtTime(0.6, ctx.currentTime + t + 0.01)
-        oscGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.55)
-      }
-
-      osc.connect(oscGain)
-      oscGain.connect(gain)
-      osc.start(ctx.currentTime)
-      oscs.push(osc)
-    })
-
-    oscillatorsRef.current = oscs
-  }, [])
-
-  useEffect(() => {
-    // Afficher le widget après 1.5s
-    const t = setTimeout(() => setVisible(true), 1500)
-    return () => clearTimeout(t)
-  }, [])
-
-  const togglePlay = useCallback(() => {
-    if (playing) {
-      stopSynth()
-      gainRef.current?.gain.setValueAtTime(0, audioCtxRef.current?.currentTime ?? 0)
-      setPlaying(false)
-    } else {
-      startSynth()
-      setPlaying(true)
-    }
-  }, [playing, startSynth, stopSynth])
-
-  const handleDismiss = useCallback(() => {
-    stopSynth()
-    setPlaying(false)
-    setDismissed(true)
-  }, [stopSynth])
-
-  if (dismissed) return null
-
-  return (
-    <div className={`music-player ${visible ? 'music-player--visible' : ''}`} role="complementary" aria-label="Lecteur audio ambiance">
-      <div className="music-player__kora-icon" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="24" cy="30" rx="14" ry="12" stroke="#ba9053" strokeWidth="1.8" fill="rgba(186,144,83,0.08)"/>
-          <line x1="24" y1="6" x2="24" y2="18" stroke="#ba9053" strokeWidth="1.8" strokeLinecap="round"/>
-          <line x1="18" y1="10" x2="22" y2="30" stroke="#ba9053" strokeWidth="1.3" strokeLinecap="round" strokeDasharray="2 2"/>
-          <line x1="24" y1="8" x2="24" y2="30" stroke="#ba9053" strokeWidth="1.3" strokeLinecap="round" strokeDasharray="2 2"/>
-          <line x1="30" y1="10" x2="26" y2="30" stroke="#ba9053" strokeWidth="1.3" strokeLinecap="round" strokeDasharray="2 2"/>
-          <circle cx="18" cy="9" r="2" fill="#ba9053"/>
-          <circle cx="24" cy="6" r="2" fill="#ba9053"/>
-          <circle cx="30" cy="9" r="2" fill="#ba9053"/>
-        </svg>
-      </div>
-      <div className="music-player__info">
-        <span className="music-player__label">Ambiance Kora</span>
-        <span className="music-player__sub">{playing ? '♪ En cours…' : 'Musique africaine'}</span>
-      </div>
-      <button
-        type="button"
-        className={`music-player__btn ${playing ? 'music-player__btn--playing' : ''}`}
-        onClick={togglePlay}
-        aria-label={playing ? 'Mettre en pause' : 'Jouer la musique'}
-      >
-        {playing ? (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
-        ) : (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-        )}
-      </button>
-      <button
-        type="button"
-        className="music-player__close"
-        onClick={handleDismiss}
-        aria-label="Fermer le lecteur"
-      >
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-  )
-}
 
 function Logo({ dark = false }: { dark?: boolean }) {
   return (
@@ -421,7 +290,6 @@ function HomePage() {
 
   return (
     <main>
-      <MusicPlayer />
       <section
         className="hero"
         ref={heroRef}
@@ -1024,42 +892,39 @@ function PatronSection() {
   const patrons = [
     {
       role: 'Marraine officielle',
-      roleEN: 'Godmother',
+      roleEN: 'Marraine',
       num: '01',
       name: 'Jacqueline Fatima Bocoum',
-      title: 'Inspiratrice & Référence',
-      description: "Figure d'exception du leadership féminin, Jacqueline Fatima Bocoum incarne la grâce, la sagesse et l'engagement au service des femmes africaines. Sa présence illumine la 4e édition des Linguères Awards.",
+      tags: ['Communicante', 'Écrivaine', 'Fondatrice de JACADEMIE'],
+      description: "L'Afrique au Féminin\u00a0: Héritage, Leadership et Futur par l'Éducation des Filles.",
       photo: photoMarraine,
-      accent: 'var(--gold)',
     },
     {
       role: 'Parrain officiel',
-      roleEN: 'Godfather',
+      roleEN: 'Parrain',
       num: '02',
       name: 'Dr Ibrahima Amadou Niang',
-      title: 'Allié du leadership féminin',
-      description: "Défenseur engagé de l'éducation et du progrès social, le Dr Ibrahima Amadou Niang porte haut les valeurs de l'égalité et de l'excellence. Son soutien illustre l'esprit He For She qui anime les Linguères Awards.",
+      tags: ['Philanthrope', "Leader d'opinion", 'Auteur', 'Docteur en science politique'],
+      description: "L'Afrique au Féminin\u00a0: Héritage, Leadership et Futur par l'Éducation des Filles.",
       photo: photoPadraig,
-      accent: 'var(--wine)',
     },
   ]
 
   return (
     <section className="patron-section section" aria-label="Parrain et Marraine officiels">
       <div className="patron-section__header">
-        <Eyebrow>Parrain & Marraine · Édition 2026</Eyebrow>
+        <Eyebrow>Parrain &amp; Marraine · Édition 2026</Eyebrow>
         <Reveal>
           <h2>DES FIGURES <em>D'EXCEPTION</em><br />À NOS CÔTÉS.</h2>
         </Reveal>
         <p className="patron-section__intro">
-          L'édition 2026 des Linguères Awards est honorée par la présence de personnalités d'exception qui incarnent nos valeurs d'excellence, d'engagement et de transmission.
+          L'édition 2026 des Linguères Awards est honorée par la présence de deux personnalités d'exception qui portent haut les valeurs d'excellence, de transmission et d'engagement pour l'éducation des filles.
         </p>
       </div>
 
       <div className="patron-grid">
         {patrons.map((patron) => (
           <article className="patron-card" key={patron.num}>
-            {/* Numéro décoratif */}
             <span className="patron-card__num" aria-hidden="true">{patron.num}</span>
 
             {/* Photo */}
@@ -1072,14 +937,12 @@ function PatronSection() {
                 />
                 <div className="patron-card__photo-veil" />
               </div>
-              {/* Badge rôle */}
               <div className="patron-card__role-badge">
                 <span className="patron-card__role-label">{patron.role}</span>
-                <span className="patron-card__role-sub">{patron.roleEN}</span>
               </div>
             </div>
 
-            {/* Contenu éditorial */}
+            {/* Corps éditorial */}
             <div className="patron-card__body">
               <div className="patron-card__crown" aria-hidden="true">
                 <svg width="32" height="20" viewBox="0 0 48 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1088,19 +951,34 @@ function PatronSection() {
                   <circle cx="24" cy="4" r="2.5" fill="#ba9053"/>
                   <circle cx="44" cy="10" r="2.5" fill="#ba9053"/>
                   <line x1="4" y1="27" x2="44" y2="27" stroke="#ba9053" strokeWidth="1"/>
-                  <line x1="4" y1="29" x2="44" y2="29" stroke="rgba(186,144,83,0.4)" strokeWidth="0.5"/>
                 </svg>
               </div>
               <h3 className="patron-card__name">{patron.name}</h3>
-              <p className="patron-card__title">{patron.title}</p>
+
+              {/* Tags métier */}
+              <div className="patron-card__tags">
+                {patron.tags.map((tag, i) => (
+                  <span key={i} className="patron-card__tag">
+                    {i > 0 && <span className="patron-card__tag-sep" aria-hidden="true">•</span>}
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
               <div className="patron-card__divider" />
               <p className="patron-card__desc">{patron.description}</p>
+
+              {/* Date */}
+              <div className="patron-card__date">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span>Samedi 26 Décembre 2026 · Noom Hotel Dakar</span>
+              </div>
             </div>
           </article>
         ))}
       </div>
 
-      {/* Ligne décorative de bas de section */}
+      {/* Ornement bas */}
       <div className="patron-section__bottom" aria-hidden="true">
         <span className="patron-section__ornament">✦</span>
         <span className="patron-section__line" />

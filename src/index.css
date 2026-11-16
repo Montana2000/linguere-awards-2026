@@ -682,6 +682,51 @@ a:hover .arrow { transform: translate(.18rem, -.18rem); }
   }
 }
 
+/* Tags métier */
+.patron-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0;
+  margin: 0;
+}
+
+.patron-card__tag {
+  display: inline-flex;
+  align-items: center;
+  color: rgba(246, 240, 230, 0.75);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+
+.patron-card__tag-sep {
+  margin: 0 0.4rem;
+  color: var(--gold);
+  font-size: 0.55rem;
+}
+
+/* Date bas de carte */
+.patron-card__date {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  padding: 0.55rem 0.85rem;
+  background: rgba(186, 144, 83, 0.1);
+  border: 1px solid rgba(186, 144, 83, 0.25);
+  color: var(--gold);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.patron-card__date svg {
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
 
 footer { padding: 6.5rem var(--pad) 2rem; color: var(--ivory); background: var(--ebony); scroll-margin-top: 5rem; }
 .footer__top { display: grid; grid-template-columns: 1fr 1.15fr 0.95fr 1.6fr; gap: 3.5rem; padding-bottom: 5.5rem; align-items: start; }
@@ -796,117 +841,6 @@ footer { padding: 6.5rem var(--pad) 2rem; color: var(--ivory); background: var(-
   text-decoration: none;
 }
 .footer__contact-cta:hover { background: var(--champagne); transform: translateY(-2px); color: var(--ebony); }
-
-/* ═══════════════════════════════════════════════════════
-   MUSIC PLAYER WIDGET — Ambiance Kora africaine
-   ═══════════════════════════════════════════════════════ */
-.music-player {
-  position: fixed;
-  bottom: 1.75rem;
-  right: 1.5rem;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.65rem 0.9rem 0.65rem 0.75rem;
-  background: rgba(25, 20, 22, 0.88);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgba(186, 144, 83, 0.4);
-  border-radius: 2px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(186, 144, 83, 0.1);
-  transform: translateY(6rem);
-  opacity: 0;
-  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
-  min-width: 0;
-}
-
-.music-player--visible {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.music-player__kora-icon {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  opacity: 0.9;
-}
-
-.music-player__info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  min-width: 0;
-}
-
-.music-player__label {
-  color: var(--champagne);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.music-player__sub {
-  color: rgba(186, 144, 83, 0.75);
-  font: italic 400 0.72rem/1 'Cormorant Garamond', serif;
-  white-space: nowrap;
-}
-
-.music-player__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  flex-shrink: 0;
-  border: 1px solid rgba(186, 144, 83, 0.5);
-  border-radius: 50%;
-  background: rgba(186, 144, 83, 0.12);
-  color: var(--gold);
-  cursor: pointer;
-  transition: background 0.25s, border-color 0.25s, transform 0.2s;
-}
-
-.music-player__btn:hover {
-  background: var(--gold);
-  color: var(--ebony);
-  transform: scale(1.08);
-}
-
-.music-player__btn--playing {
-  border-color: var(--gold);
-  background: rgba(186, 144, 83, 0.18);
-  animation: music-pulse 2s ease-in-out infinite;
-}
-
-@keyframes music-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(186, 144, 83, 0.4); }
-  50% { box-shadow: 0 0 0 5px rgba(186, 144, 83, 0); }
-}
-
-.music-player__close {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.4rem;
-  height: 1.4rem;
-  flex-shrink: 0;
-  border: 0;
-  border-radius: 50%;
-  background: rgba(246, 240, 230, 0.08);
-  color: rgba(246, 240, 230, 0.4);
-  cursor: pointer;
-  margin-left: 0.1rem;
-  transition: background 0.2s, color 0.2s;
-}
-
-.music-player__close:hover {
-  background: rgba(246, 240, 230, 0.15);
-  color: rgba(246, 240, 230, 0.85);
-}
 
 /* ═══════════════════════════════════════════════════════
    COUNTDOWN — Fond beige champagne + glassmorphism brun
