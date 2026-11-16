@@ -15,6 +15,9 @@ import woman3 from '../IMAGE WOMANS/young-woman-wearing-orange-dress-with-turban
 // Parrain & Marraine officiels
 import photoPadraig from '../PARRAIN ET MARRAINE/DR IBRAHIMA AMADOU NIANG.jpeg'
 import photoMarraine from '../PARRAIN ET MARRAINE/JACQUELINE FATIMA BOCOUM.jpeg'
+// Distinctions Spéciales
+import photoAishaBa from '../PRIX/Aisha Ba.jpeg'
+import photoGoraPene from '../PRIX/Aladji Gora Lo Pene.jpeg'
 
 const images = {
   hero: 'https://images.unsplash.com/photo-1673447067622-bbc8a34e2c56?auto=format&fit=crop&w=2200&q=90',
@@ -465,9 +468,72 @@ function HomePage() {
             </a>
           ))}
         </div>
-        <div className="special-awards">
-          <p>Distinctions spéciales</p>
-          <div><span>Prix Art & Scène</span><span>He For She</span></div>
+        <div className="special-awards-showcase">
+          <div className="special-awards-showcase__header">
+            <div>
+              <span className="special-awards-showcase__badge">✦ Distinctions d’Exception · Édition 2026</span>
+              <h3>LES DISTINCTIONS SPÉCIALES DU SACRE</h3>
+            </div>
+            <p>Deux hommages d’honneur officiels décernés pour le rayonnement artistique et l'engagement exemplaire aux côtés des Linguères.</p>
+          </div>
+
+          <div className="special-awards-grid">
+            {/* Carte Aisha Ba */}
+            <article className="special-award-card">
+              <span className="special-award-card__num" aria-hidden="true">12</span>
+              <div className="special-award-card__photo-frame">
+                <img src={photoAishaBa} alt="Aisha Ba — Prix Art & Scène" className="special-award-card__photo" />
+                <div className="special-award-card__photo-veil" />
+                <span className="special-award-card__pill">Prix Art &amp; Scène</span>
+              </div>
+              <div className="special-award-card__body">
+                <span className="special-award-card__award-type">Distinction d’Honneur</span>
+                <h4 className="special-award-card__name">Aisha Ba</h4>
+                <p className="special-award-card__role">Model / Actrice Sénégalaise</p>
+                <div className="special-award-card__divider" />
+                <p className="special-award-card__desc">
+                  Figure emblématique du mannequinat et du cinéma sénégalais, elle porte avec éclat et talent l’élégance, la force et le génie artistique des femmes africaines sur la scène internationale.
+                </p>
+                <div className="special-award-card__footer">
+                  <div className="special-award-card__date">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    <span>26 Décembre 2026 · Noom Hotel</span>
+                  </div>
+                  <a href="/distinctions" className="special-award-card__link">Voir distinction <Arrow /></a>
+                </div>
+              </div>
+            </article>
+
+            {/* Carte Aladji Gora Lo Pene */}
+            <article className="special-award-card">
+              <span className="special-award-card__num" aria-hidden="true">13</span>
+              <div className="special-award-card__photo-frame">
+                <img src={photoGoraPene} alt="Aladji Gora Lo Pene — Prix He For She" className="special-award-card__photo" />
+                <div className="special-award-card__photo-veil" />
+                <span className="special-award-card__pill">Prix He For She</span>
+              </div>
+              <div className="special-award-card__body">
+                <span className="special-award-card__award-type">Distinction d’Honneur</span>
+                <h4 className="special-award-card__name">Aladji Gora Lo Pene</h4>
+                <p className="special-award-card__role">Président SENE ASSO · Damel des Linguères</p>
+                <div className="special-award-card__divider" />
+                <p className="special-award-card__desc">
+                  Allié d’honneur et dirigeant engagé, Président de SENE ASSO et Damel des Linguères, il soutient avec ferveur l’autonomisation, la reconnaissance et le leadership des femmes et des jeunes filles.
+                </p>
+                <div className="special-award-card__footer">
+                  <div className="special-award-card__date">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    <span>26 Décembre 2026 · Noom Hotel</span>
+                  </div>
+                  <a href="/distinctions" className="special-award-card__link">Voir distinction <Arrow /></a>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -626,6 +692,11 @@ type DistinctionItem = {
   groupLabel: string
   description: string
   badge?: string
+  laureate?: {
+    name: string
+    title: string
+    photo: string
+  }
 }
 
 const DISTINCTIONS_DATA: DistinctionItem[] = [
@@ -724,7 +795,12 @@ const DISTINCTIONS_DATA: DistinctionItem[] = [
     categoryGroup: 'special',
     groupLabel: 'Distinction Spéciale',
     badge: 'Distinction d’Honneur',
-    description: 'Hommage spécial aux grandes figures des arts de la scène, de la musique et du spectacle vivant qui font vibrer l’âme africaine.',
+    description: 'Hommage spécial aux grandes figures de la mode, de l’art dramatique et du cinéma qui portent avec éclat et fierté le rayonnement culturel africain.',
+    laureate: {
+      name: 'Aisha Ba',
+      title: 'Model / Actrice Sénégalaise',
+      photo: photoAishaBa,
+    },
   },
   {
     id: 'he-for-she',
@@ -733,7 +809,12 @@ const DISTINCTIONS_DATA: DistinctionItem[] = [
     categoryGroup: 'special',
     groupLabel: 'Distinction Spéciale',
     badge: 'Distinction d’Honneur',
-    description: 'Reconnaissance officielle décernée à un allié masculin engagé activement pour l’égalité des chances et l’éducation des filles.',
+    description: 'Reconnaissance officielle décernée à un allié masculin d’exception, dirigeant engagé aux côtés des Linguères pour l’autonomisation et l’éducation des filles.',
+    laureate: {
+      name: 'Aladji Gora Lo Pene',
+      title: 'Président SENE ASSO · Damel des Linguères',
+      photo: photoGoraPene,
+    },
   },
 ]
 
@@ -804,6 +885,22 @@ function DistinctionsPageContent() {
                 )}
               </div>
               <p className="distinction-card-expert__desc">{item.description}</p>
+              {item.laureate && (
+                <div className="distinction-card-expert__laureate">
+                  <div className="distinction-card-expert__laureate-avatar-wrap">
+                    <img
+                      src={item.laureate.photo}
+                      alt={item.laureate.name}
+                      className="distinction-card-expert__laureate-avatar"
+                    />
+                  </div>
+                  <div className="distinction-card-expert__laureate-body">
+                    <span className="distinction-card-expert__laureate-badge">Récipiendaire d'Honneur 2026</span>
+                    <strong className="distinction-card-expert__laureate-name">{item.laureate.name}</strong>
+                    <p className="distinction-card-expert__laureate-title">{item.laureate.title}</p>
+                  </div>
+                </div>
+              )}
               <div className="distinction-card-expert__footer">
                 <span className="distinction-card-expert__edition">Édition 2026 · Noom Hotel Dakar</span>
                 <a className="distinction-card-expert__link" href="#contact">Prendre part <Arrow /></a>
