@@ -1428,18 +1428,14 @@ footer { padding: 6.5rem var(--pad) 2rem; color: var(--ivory); background: var(-
   background: rgba(232, 216, 187, 0.2);
 }
 
-/* Barre de filtres et recherche - Fixe au défilement */
+/* Barre de filtres et recherche — Reste avec l'en-tête (ne flotte pas par-dessus les nominées) */
 .nominees-filter-section {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 4.6rem;
-  z-index: 45;
-  background: rgba(246, 240, 230, 0.97);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  position: relative;
+  z-index: 10;
+  background: var(--ivory);
   border-bottom: 1px solid rgba(186, 144, 83, 0.28);
-  box-shadow: 0 6px 24px rgba(25, 20, 22, 0.08);
-  padding: 1.1rem var(--pad);
+  box-shadow: 0 4px 16px rgba(25, 20, 22, 0.05);
+  padding: 1.4rem var(--pad);
   /* Garantit que les suggestions dropdown restent visibles */
   overflow: visible;
 }
@@ -2035,9 +2031,6 @@ footer { padding: 6.5rem var(--pad) 2rem; color: var(--ivory); background: var(-
 }
 
 @media (max-width: 900px) {
-  .nominees-filter-section {
-    top: 4.25rem;
-  }
   .nominees-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.5rem;
