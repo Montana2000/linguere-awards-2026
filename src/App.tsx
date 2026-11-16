@@ -34,6 +34,7 @@ const navItems = [
   ['Expérience 2026', '/experience'],
   ['Distinctions', '/distinctions'],
   ['Nominées', '/nominees'],
+  ['Parrain & Marraine', '#parrain-marraine'],
   ['Partenaires', '/partenaires'],
   ['Contact', '#contact'],
 ]
@@ -103,7 +104,7 @@ function Header({ forceDark = false, currentPath }: { forceDark?: boolean; curre
     <header className={`site-header ${scrolled || forceDark ? 'site-header--solid' : ''}`}>
       <Logo />
       <nav className="nav-desktop" aria-label="Navigation principale">
-        {navItems.slice(0, 5).map(([label, href]) => {
+        {navItems.slice(0, 6).map(([label, href]) => {
           const isActive = href === '/' ? activePath === '/' : activePath === href
           return (
             <a key={href} href={href} className={isActive ? 'active' : ''}>
@@ -913,7 +914,7 @@ function PatronSection() {
   ]
 
   return (
-    <section className="patron-section section" aria-label="Parrain et Marraine officiels">
+    <section className="patron-section section" id="parrain-marraine" aria-label="Parrain et Marraine officiels">
       <div className="patron-section__ambient" aria-hidden="true">
         <span className="patron-section__glow patron-section__glow--1" />
         <span className="patron-section__glow patron-section__glow--2" />
@@ -1139,6 +1140,32 @@ export default function App() {
         if (el) {
           e.preventDefault()
           el.scrollIntoView({ behavior: 'smooth' })
+        } else if (window.location.pathname !== '/') {
+          e.preventDefault()
+          window.history.pushState({}, '', '/')
+          setCurrentPath('/')
+          setTimeout(() => {
+            const targetEl = document.getElementById(targetId)
+            if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' })
+          }, 150)
+        }
+        return
+      }
+
+      // Liens avec ancre sur l'accueil type /#parrain-marraine
+      if (href.startsWith('/#')) {
+        const targetId = href.slice(2)
+        e.preventDefault()
+        if (window.location.pathname !== '/') {
+          window.history.pushState({}, '', '/')
+          setCurrentPath('/')
+          setTimeout(() => {
+            const targetEl = document.getElementById(targetId)
+            if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' })
+          }, 150)
+        } else {
+          const targetEl = document.getElementById(targetId)
+          if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' })
         }
         return
       }
