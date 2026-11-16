@@ -892,99 +892,157 @@ function PatronSection() {
   const patrons = [
     {
       role: 'Marraine officielle',
-      roleEN: 'Marraine',
+      roleSub: 'Figure Tutélaire & Voix Inspirante',
       num: '01',
       name: 'Jacqueline Fatima Bocoum',
-      tags: ['Communicante', 'Écrivaine', 'Fondatrice de JACADEMIE'],
-      description: "L'Afrique au Féminin\u00a0: Héritage, Leadership et Futur par l'Éducation des Filles.",
+      titles: ['Communicante', 'Écrivaine', 'Fondatrice de JACADEMIE'],
+      quote: "Transmettre aux jeunes filles le pouvoir de la parole, de la culture et de la liberté.",
+      tagline: "L'Afrique au Féminin : Héritage, Leadership et Futur par l'Éducation des Filles.",
       photo: photoMarraine,
     },
     {
       role: 'Parrain officiel',
-      roleEN: 'Parrain',
+      roleSub: 'Allié Stratégique & Porteur d’Impact',
       num: '02',
       name: 'Dr Ibrahima Amadou Niang',
-      tags: ['Philanthrope', "Leader d'opinion", 'Auteur', 'Docteur en science politique'],
-      description: "L'Afrique au Féminin\u00a0: Héritage, Leadership et Futur par l'Éducation des Filles.",
+      titles: ['Philanthrope', "Leader d'opinion", 'Auteur', 'Docteur en science politique'],
+      quote: "Bâtir des passerelles d’excellence et de justice sociale pour soutenir les bâtisseuses de l'Afrique.",
+      tagline: "L'Afrique au Féminin : Héritage, Leadership et Futur par l'Éducation des Filles.",
       photo: photoPadraig,
     },
   ]
 
   return (
     <section className="patron-section section" aria-label="Parrain et Marraine officiels">
-      <div className="patron-section__header">
-        <Eyebrow>Parrain &amp; Marraine · Édition 2026</Eyebrow>
-        <Reveal>
-          <h2>DES FIGURES <em>D'EXCEPTION</em><br />À NOS CÔTÉS.</h2>
-        </Reveal>
-        <p className="patron-section__intro">
-          L'édition 2026 des Linguères Awards est honorée par la présence de deux personnalités d'exception qui portent haut les valeurs d'excellence, de transmission et d'engagement pour l'éducation des filles.
-        </p>
+      <div className="patron-section__ambient" aria-hidden="true">
+        <span className="patron-section__glow patron-section__glow--1" />
+        <span className="patron-section__glow patron-section__glow--2" />
       </div>
 
-      <div className="patron-grid">
-        {patrons.map((patron) => (
-          <article className="patron-card" key={patron.num}>
-            <span className="patron-card__num" aria-hidden="true">{patron.num}</span>
-
-            {/* Photo */}
-            <div className="patron-card__photo-wrap">
-              <div className="patron-card__photo-frame">
-                <img
-                  src={patron.photo}
-                  alt={`${patron.role} — ${patron.name}`}
-                  className="patron-card__photo"
-                />
-                <div className="patron-card__photo-veil" />
-              </div>
-              <div className="patron-card__role-badge">
-                <span className="patron-card__role-label">{patron.role}</span>
-              </div>
+      <div className="patron-section__container">
+        <div className="patron-section__header">
+          <div className="patron-section__header-left">
+            <div className="patron-section__eyebrow-badge">
+              <span className="patron-section__dot" />
+              <span>Haut Patronage · Édition 2026</span>
             </div>
+            <h2>
+              DES FIGURES <em>D'EXCEPTION</em><br />
+              À NOS CÔTÉS.
+            </h2>
+          </div>
 
-            {/* Corps éditorial */}
-            <div className="patron-card__body">
-              <div className="patron-card__crown" aria-hidden="true">
-                <svg width="32" height="20" viewBox="0 0 48 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 26 L4 10 L16 18 L24 4 L32 18 L44 10 L44 26 Z" stroke="#ba9053" strokeWidth="1.5" fill="rgba(186,144,83,0.08)" strokeLinejoin="round"/>
-                  <circle cx="4" cy="10" r="2.5" fill="#ba9053"/>
-                  <circle cx="24" cy="4" r="2.5" fill="#ba9053"/>
-                  <circle cx="44" cy="10" r="2.5" fill="#ba9053"/>
-                  <line x1="4" y1="27" x2="44" y2="27" stroke="#ba9053" strokeWidth="1"/>
-                </svg>
-              </div>
-              <h3 className="patron-card__name">{patron.name}</h3>
-
-              {/* Tags métier */}
-              <div className="patron-card__tags">
-                {patron.tags.map((tag, i) => (
-                  <span key={i} className="patron-card__tag">
-                    {i > 0 && <span className="patron-card__tag-sep" aria-hidden="true">•</span>}
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="patron-card__divider" />
-              <p className="patron-card__desc">{patron.description}</p>
-
-              {/* Date */}
-              <div className="patron-card__date">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <span>Samedi 26 Décembre 2026 · Noom Hotel Dakar</span>
-              </div>
+          <div className="patron-section__header-right">
+            <blockquote className="patron-section__theme-quote">
+              <span>Thème Officiel 2026</span>
+              « L'Afrique au Féminin : Héritage, Leadership et Futur par l'Éducation des Filles. »
+            </blockquote>
+            <p className="patron-section__intro">
+              Deux personnalités majeures dont l'engagement, l'éthique et les trajectoires d'excellence éclairent la 4e édition des Linguères Awards.
+            </p>
+            <div className="patron-section__date-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span>Samedi 26 Décembre 2026 · Noom Hotel Dakar Sea Plaza</span>
             </div>
-          </article>
-        ))}
-      </div>
+          </div>
+        </div>
 
-      {/* Ornement bas */}
-      <div className="patron-section__bottom" aria-hidden="true">
-        <span className="patron-section__ornament">✦</span>
-        <span className="patron-section__line" />
-        <span className="patron-section__label">Linguères Awards 2026</span>
-        <span className="patron-section__line" />
-        <span className="patron-section__ornament">✦</span>
+        <div className="patron-grid">
+          {patrons.map((patron) => (
+            <article className="patron-card" key={patron.num}>
+              {/* Ornements d'angle dorés */}
+              <span className="patron-card__corner patron-card__corner--tl" aria-hidden="true" />
+              <span className="patron-card__corner patron-card__corner--tr" aria-hidden="true" />
+              <span className="patron-card__corner patron-card__corner--bl" aria-hidden="true" />
+              <span className="patron-card__corner patron-card__corner--br" aria-hidden="true" />
+
+              <span className="patron-card__num" aria-hidden="true">{patron.num}</span>
+
+              {/* Photo avec cadre d'honneur */}
+              <div className="patron-card__photo-wrap">
+                <div className="patron-card__photo-frame">
+                  <img
+                    src={patron.photo}
+                    alt={`${patron.role} — ${patron.name}`}
+                    className="patron-card__photo"
+                  />
+                  <div className="patron-card__photo-veil" />
+                  <div className="patron-card__photo-border" aria-hidden="true" />
+                </div>
+                <div className="patron-card__role-badge">
+                  <span className="patron-card__role-label">{patron.role}</span>
+                  <small className="patron-card__role-sub">{patron.roleSub}</small>
+                </div>
+              </div>
+
+              {/* Corps éditorial */}
+              <div className="patron-card__body">
+                <div className="patron-card__crown" aria-hidden="true">
+                  <svg width="34" height="20" viewBox="0 0 48 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 26 L4 10 L16 18 L24 4 L32 18 L44 10 L44 26 Z" stroke="#ba9053" strokeWidth="1.6" fill="rgba(186,144,83,0.12)" strokeLinejoin="round"/>
+                    <circle cx="4" cy="10" r="2.5" fill="#ba9053"/>
+                    <circle cx="24" cy="4" r="2.5" fill="#ba9053"/>
+                    <circle cx="44" cy="10" r="2.5" fill="#ba9053"/>
+                    <line x1="4" y1="27" x2="44" y2="27" stroke="#ba9053" strokeWidth="1.2"/>
+                  </svg>
+                  <span className="patron-card__honor-line" />
+                </div>
+
+                <h3 className="patron-card__name">{patron.name}</h3>
+
+                {/* Tags de compétences officielles */}
+                <div className="patron-card__tags">
+                  {patron.titles.map((title, i) => (
+                    <span key={i} className="patron-card__tag">
+                      {title}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="patron-card__divider" />
+
+                <p className="patron-card__quote">
+                  « {patron.quote} »
+                </p>
+
+                <div className="patron-card__tagline">
+                  <span className="patron-card__tagline-label">Engagement 2026</span>
+                  <strong>{patron.tagline}</strong>
+                </div>
+
+                {/* Badge de bas de carte */}
+                <div className="patron-card__footer">
+                  <div className="patron-card__date">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="3" y="4" width="18" height="18" rx="2"/>
+                      <line x1="16" y1="2" x2="16" y2="6"/>
+                      <line x1="8" y1="2" x2="8" y2="6"/>
+                      <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    <span>Samedi 26 Décembre 2026 · Noom Hotel Dakar</span>
+                  </div>
+                  <a className="patron-card__action" href="#partenaires">
+                    Rejoindre le sacre <Arrow />
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Ornement bas */}
+        <div className="patron-section__bottom" aria-hidden="true">
+          <span className="patron-section__ornament">✦</span>
+          <span className="patron-section__line" />
+          <span className="patron-section__label">Linguères Awards 2026 · Haut Patronage</span>
+          <span className="patron-section__line" />
+          <span className="patron-section__ornament">✦</span>
+        </div>
       </div>
     </section>
   )

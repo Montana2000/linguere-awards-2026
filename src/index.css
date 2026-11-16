@@ -400,229 +400,481 @@ a:hover .arrow { transform: translate(.18rem, -.18rem); }
    ═══════════════════════════════════════════════════════ */
 .patron-section {
   position: relative;
-  background: linear-gradient(180deg, var(--ebony) 0%, #110d10 100%);
+  background: radial-gradient(circle at 15% 20%, rgba(76, 24, 45, 0.45) 0%, transparent 50%),
+              radial-gradient(circle at 85% 80%, rgba(186, 144, 83, 0.18) 0%, transparent 55%),
+              linear-gradient(180deg, #130e11 0%, #1c1518 50%, #110d10 100%);
   color: var(--ivory);
+  overflow: hidden;
+  padding: clamp(6rem, 9vw, 9.5rem) var(--pad);
+}
+
+.patron-section__ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   overflow: hidden;
 }
 
-/* Lumière décorative de fond */
-.patron-section::before {
-  content: '';
+.patron-section__glow {
   position: absolute;
-  top: -6rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70vw;
-  height: 30rem;
-  background: radial-gradient(ellipse, rgba(186, 144, 83, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(100px);
   pointer-events: none;
 }
 
-/* Header de section */
+.patron-section__glow--1 {
+  top: -10rem;
+  left: 20%;
+  width: 35rem;
+  height: 35rem;
+  background: rgba(186, 144, 83, 0.12);
+}
+
+.patron-section__glow--2 {
+  bottom: -10rem;
+  right: 15%;
+  width: 32rem;
+  height: 32rem;
+  background: rgba(76, 24, 45, 0.35);
+}
+
+.patron-section__container {
+  position: relative;
+  z-index: 2;
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+/* ─── Header Éditorial Équilibré ─── */
 .patron-section__header {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: clamp(2rem, 4vw, 5rem);
-  align-items: end;
-  margin-bottom: clamp(4rem, 6vw, 6rem);
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(2.5rem, 5vw, 5.5rem);
+  align-items: center;
+  margin-bottom: clamp(4rem, 6.5vw, 6rem);
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid rgba(186, 144, 83, 0.22);
+}
+
+.patron-section__header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.patron-section__eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 1rem;
+  background: rgba(186, 144, 83, 0.12);
+  border: 1px solid rgba(186, 144, 83, 0.4);
+  color: var(--champagne);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.patron-section__dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 10px var(--gold);
+  animation: pulse-gold 2s infinite ease-in-out;
 }
 
 .patron-section__header h2 {
   margin: 0;
-  font: 400 clamp(3rem, 6vw, 6rem)/.86 'Cormorant Garamond', serif;
-  letter-spacing: -.04em;
-  color: var(--ivory);
+  font: 400 clamp(3.2rem, 5.8vw, 6.2rem)/0.88 'Cormorant Garamond', serif;
+  letter-spacing: -0.04em;
+  color: #ffffff;
 }
 
 .patron-section__header h2 em {
   color: var(--gold);
   font-weight: 400;
+  font-style: italic;
+}
+
+.patron-section__header-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.patron-section__theme-quote {
+  margin: 0;
+  padding: 1.25rem 1.6rem;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-left: 3px solid var(--gold);
+  border-top: 1px solid rgba(186, 144, 83, 0.2);
+  border-right: 1px solid rgba(186, 144, 83, 0.12);
+  border-bottom: 1px solid rgba(186, 144, 83, 0.12);
+  color: var(--champagne);
+  font: italic 400 1.15rem/1.35 'Cormorant Garamond', serif;
+}
+
+.patron-section__theme-quote span {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--gold);
+  font: 600 0.58rem/1 'Manrope', sans-serif;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-style: normal;
 }
 
 .patron-section__intro {
   margin: 0;
-  color: rgba(246, 240, 230, 0.68);
-  font-size: 0.88rem;
-  line-height: 1.8;
-  max-width: 32rem;
-  align-self: end;
+  color: rgba(246, 240, 230, 0.85);
+  font-size: 0.92rem;
+  line-height: 1.75;
 }
 
-/* Grille 2 cartes */
+.patron-section__date-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 1.15rem;
+  background: rgba(76, 24, 45, 0.45);
+  border: 1px solid rgba(186, 144, 83, 0.35);
+  color: var(--champagne);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.patron-section__date-pill svg {
+  color: var(--gold);
+}
+
+/* ─── Grille 2 Grandes Cartes Prestigieuses ─── */
 .patron-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(2rem, 4vw, 4.5rem);
+  gap: clamp(2.5rem, 4.5vw, 4.5rem);
   position: relative;
   z-index: 2;
 }
 
-/* Carte individuelle */
+/* ─── Carte individuelle ─── */
 .patron-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 2.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(186, 144, 83, 0.22);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: border-color .4s ease, box-shadow .4s ease, transform .4s cubic-bezier(.22,1,.36,1);
+  padding: clamp(2.2rem, 3.5vw, 3.2rem);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.05) 0%, rgba(25, 20, 22, 0.75) 100%);
+  border: 1px solid rgba(186, 144, 83, 0.28);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.4s ease,
+              box-shadow 0.45s ease;
   overflow: hidden;
 }
 
-.patron-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(186, 144, 83, 0.04) 0%, transparent 60%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity .4s ease;
-}
-
 .patron-card:hover {
-  border-color: rgba(186, 144, 83, 0.55);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), 0 0 30px rgba(186, 144, 83, 0.08);
-  transform: translateY(-4px);
+  transform: translateY(-6px);
+  border-color: rgba(186, 144, 83, 0.65);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45),
+              0 0 35px rgba(186, 144, 83, 0.16);
 }
 
-.patron-card:hover::after {
-  opacity: 1;
+/* Ornements d'angle dorés */
+.patron-card__corner {
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+  z-index: 3;
 }
 
-/* Numéro déco */
+.patron-card__corner--tl {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--gold);
+  border-left: 2px solid var(--gold);
+}
+
+.patron-card__corner--tr {
+  top: -1px;
+  right: -1px;
+  border-top: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+}
+
+.patron-card__corner--bl {
+  bottom: -1px;
+  left: -1px;
+  border-bottom: 2px solid var(--gold);
+  border-left: 2px solid var(--gold);
+}
+
+.patron-card__corner--br {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+}
+
+/* Grand numéro en filigrane */
 .patron-card__num {
   position: absolute;
   top: 1.5rem;
   right: 2rem;
-  color: rgba(186, 144, 83, 0.12);
-  font: 400 7rem/1 'Cormorant Garamond', serif;
-  letter-spacing: -.06em;
+  color: rgba(186, 144, 83, 0.1);
+  font: 400 8rem/1 'Cormorant Garamond', serif;
+  letter-spacing: -0.06em;
   pointer-events: none;
   user-select: none;
   z-index: 0;
+  transition: color 0.4s ease, transform 0.4s ease;
 }
 
-/* Wrapper photo */
+.patron-card:hover .patron-card__num {
+  color: rgba(186, 144, 83, 0.18);
+  transform: scale(1.05);
+}
+
+/* ─── Photo de la personnalité ─── */
 .patron-card__photo-wrap {
   position: relative;
   z-index: 1;
+  margin-bottom: 2.2rem;
 }
 
 .patron-card__photo-frame {
   position: relative;
   overflow: hidden;
-  /* Cadre doré */
-  border: 1px solid rgba(186, 144, 83, 0.4);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 0 4px rgba(186, 144, 83, 0.07);
-  aspect-ratio: 4 / 5;
+  border: 1px solid rgba(186, 144, 83, 0.45);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+  aspect-ratio: 4 / 4.8;
+  background: var(--ebony);
 }
 
 .patron-card__photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 15%;
+  object-position: center 18%;
   display: block;
-  transition: transform 1s cubic-bezier(.22,1,.36,1), filter .6s ease;
-  filter: saturate(0.85);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease;
+  filter: saturate(0.92) contrast(1.04);
 }
 
 .patron-card:hover .patron-card__photo {
-  transform: scale(1.04);
-  filter: saturate(1.05);
+  transform: scale(1.045);
+  filter: saturate(1.08) contrast(1.06);
 }
 
 .patron-card__photo-veil {
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(17, 13, 16, 0.75) 0%, rgba(17, 13, 16, 0.1) 50%, transparent 100%);
+  background: linear-gradient(0deg, rgba(17, 13, 16, 0.85) 0%, rgba(17, 13, 16, 0.15) 45%, transparent 100%);
   pointer-events: none;
 }
 
-/* Badge rôle positionné sur la photo */
+.patron-card__photo-border {
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(186, 144, 83, 0.28);
+  pointer-events: none;
+  transition: inset 0.4s ease, border-color 0.4s ease;
+}
+
+.patron-card:hover .patron-card__photo-border {
+  inset: 12px;
+  border-color: rgba(186, 144, 83, 0.55);
+}
+
+/* Badge de rôle flottant sur la photo */
 .patron-card__role-badge {
   position: absolute;
   bottom: 1.5rem;
   left: 1.5rem;
+  right: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  padding: 0.65rem 1rem;
-  background: rgba(17, 13, 16, 0.82);
+  gap: 0.25rem;
+  padding: 0.85rem 1.25rem;
+  background: rgba(19, 14, 17, 0.9);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-left: 3px solid var(--gold);
+  border-top: 1px solid rgba(186, 144, 83, 0.3);
+  border-right: 1px solid rgba(186, 144, 83, 0.2);
+  border-bottom: 1px solid rgba(186, 144, 83, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .patron-card__role-label {
   color: var(--gold);
-  font-size: 0.6rem;
-  font-weight: 600;
+  font-size: 0.72rem;
+  font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
 .patron-card__role-sub {
-  color: rgba(232, 216, 187, 0.55);
-  font: italic 400 0.78rem/1 'Cormorant Garamond', serif;
+  color: var(--champagne);
+  font: italic 400 0.82rem/1.2 'Cormorant Garamond', serif;
 }
 
-/* Corps éditorial */
+/* ─── Corps éditorial ─── */
 .patron-card__body {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1.15rem;
+  flex-grow: 1;
 }
 
 .patron-card__crown {
   display: flex;
   align-items: center;
-  margin-bottom: 0.25rem;
+  gap: 1rem;
+}
+
+.patron-card__honor-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(186, 144, 83, 0.45), transparent);
 }
 
 .patron-card__name {
   margin: 0;
-  color: var(--ivory);
-  font: 400 clamp(1.6rem, 2.4vw, 2.4rem)/1.1 'Cormorant Garamond', serif;
-  letter-spacing: -.02em;
-  transition: color .3s ease;
+  color: #ffffff;
+  font: 400 clamp(1.8rem, 2.6vw, 2.5rem)/1.1 'Cormorant Garamond', serif;
+  letter-spacing: -0.02em;
+  transition: color 0.3s ease;
 }
 
 .patron-card:hover .patron-card__name {
   color: var(--champagne);
 }
 
-.patron-card__title {
+/* Tags de compétences en badges dorés */
+.patron-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.patron-card__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  background: rgba(186, 144, 83, 0.1);
+  border: 1px solid rgba(186, 144, 83, 0.3);
+  color: var(--champagne);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border-radius: 2px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.patron-card:hover .patron-card__tag {
+  background: rgba(186, 144, 83, 0.18);
+  border-color: rgba(186, 144, 83, 0.5);
+}
+
+.patron-card__divider {
+  width: 3rem;
+  height: 1px;
+  background: rgba(186, 144, 83, 0.45);
+  transition: width 0.4s ease, background 0.4s ease;
+}
+
+.patron-card:hover .patron-card__divider {
+  width: 100%;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.patron-card__quote {
   margin: 0;
+  color: rgba(246, 240, 230, 0.9);
+  font: italic 400 1.15rem/1.5 'Cormorant Garamond', serif;
+  padding-left: 1rem;
+  border-left: 2px solid rgba(186, 144, 83, 0.4);
+}
+
+.patron-card__tagline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.95rem 1.25rem;
+  background: rgba(76, 24, 45, 0.35);
+  border: 1px solid rgba(186, 144, 83, 0.25);
+  border-radius: 2px;
+}
+
+.patron-card__tagline-label {
   color: var(--gold);
-  font-size: 0.6rem;
+  font-size: 0.56rem;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
-.patron-card__divider {
-  width: 2.5rem;
-  height: 1px;
-  background: rgba(186, 144, 83, 0.4);
-  transition: width .4s ease, background .4s ease;
+.patron-card__tagline strong {
+  color: var(--champagne);
+  font: italic 400 0.95rem/1.35 'Cormorant Garamond', serif;
 }
 
-.patron-card:hover .patron-card__divider {
-  width: 100%;
-  background: rgba(186, 144, 83, 0.6);
+/* Footer de carte */
+.patron-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(186, 144, 83, 0.2);
 }
 
-.patron-card__desc {
-  margin: 0;
-  color: rgba(246, 240, 230, 0.7);
-  font-size: 0.85rem;
-  line-height: 1.75;
+.patron-card__date {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--gold);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.patron-card__date svg {
+  flex-shrink: 0;
+  color: var(--gold);
+}
+
+.patron-card__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--champagne);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.patron-card__action:hover {
+  color: var(--gold);
+  transform: translateX(3px);
 }
 
 /* Ornement bas de section */
@@ -630,13 +882,13 @@ a:hover .arrow { transform: translate(.18rem, -.18rem); }
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  margin-top: clamp(4rem, 6vw, 6rem);
-  opacity: 0.35;
+  margin-top: clamp(4.5rem, 7vw, 7rem);
+  opacity: 0.5;
 }
 
 .patron-section__ornament {
   color: var(--gold);
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   flex-shrink: 0;
 }
 
@@ -648,7 +900,7 @@ a:hover .arrow { transform: translate(.18rem, -.18rem); }
 
 .patron-section__label {
   color: var(--champagne);
-  font-size: 0.58rem;
+  font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -656,83 +908,43 @@ a:hover .arrow { transform: translate(.18rem, -.18rem); }
 }
 
 /* Responsive patron */
-@media (max-width: 900px) {
+@media (max-width: 990px) {
   .patron-section__header {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2.2rem;
+    padding-bottom: 2.5rem;
   }
   .patron-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
   .patron-card__photo-frame {
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 4 / 4.5;
   }
 }
 
 @media (max-width: 600px) {
   .patron-card {
-    padding: 1.5rem 1.25rem;
-  }
-  .patron-card__photo-frame {
-    aspect-ratio: 4 / 5;
+    padding: 1.8rem 1.4rem;
   }
   .patron-card__num {
-    font-size: 5rem;
+    font-size: 5.5rem;
+    top: 1rem;
+    right: 1.2rem;
   }
-}
-
-/* Tags métier */
-.patron-card__tags {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.3rem 0;
-  margin: 0;
-}
-
-.patron-card__tag {
-  display: inline-flex;
-  align-items: center;
-  color: rgba(246, 240, 230, 0.75);
-  font-size: 0.72rem;
-  letter-spacing: 0.03em;
-  line-height: 1.4;
-}
-
-.patron-card__tag-sep {
-  margin: 0 0.4rem;
-  color: var(--gold);
-  font-size: 0.55rem;
-}
-
-/* Date bas de carte */
-.patron-card__date {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.25rem;
-  padding: 0.55rem 0.85rem;
-  background: rgba(186, 144, 83, 0.1);
-  border: 1px solid rgba(186, 144, 83, 0.25);
-  color: var(--gold);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.patron-card__date svg {
-  flex-shrink: 0;
-  opacity: 0.75;
+  .patron-card__footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
 }
 
 
 footer { padding: 6.5rem var(--pad) 2rem; color: var(--ivory); background: var(--ebony); scroll-margin-top: 5rem; }
 .footer__top { display: grid; grid-template-columns: 1fr 1.15fr 0.95fr 1.6fr; gap: 3.5rem; padding-bottom: 5.5rem; align-items: start; }
 .footer__top > p { margin: 0; color: var(--champagne); font: italic 400 1.65rem/1.35 'Cormorant Garamond', serif; }
-.footer__top nav { display: grid; gap: 1rem; }
-.footer__top nav a { color: rgba(246,240,230,.75); font-size: .88rem; letter-spacing: .08em; text-transform: uppercase; transition: color .2s; }
+.footer__top nav { display: grid; gap: 1.1rem; }
+.footer__top nav a { color: rgba(246,240,230,.8); font-size: 0.95rem; letter-spacing: .06em; text-transform: uppercase; transition: color .2s; }
 .footer__top nav a:hover { color: var(--gold); }
 /* ═══════════════════════════════════════════════════════
    FOOTER CONTACTS — Layout compact avec icônes SVG DA
@@ -740,21 +952,21 @@ footer { padding: 6.5rem var(--pad) 2rem; color: var(--ivory); background: var(-
 .footer__contact-block {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  font-size: 0.82rem;
+  gap: 1rem;
+  font-size: 0.9rem;
   color: rgba(246,240,230,.88);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .footer__contact-lead {
   margin: 0;
   color: var(--gold);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   border-bottom: 1px solid rgba(186,144,83,.35);
-  padding-bottom: .4rem;
+  padding-bottom: .5rem;
   width: fit-content;
 }
 
@@ -762,56 +974,61 @@ footer { padding: 6.5rem var(--pad) 2rem; color: var(--ivory); background: var(-
 .footer__contact-persons {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.45rem;
 }
 
 .footer__contact-person {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  font-size: 0.82rem;
-  line-height: 1.4;
+  gap: 0.6rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
   color: rgba(246,240,230,.9);
 }
 
 .footer__contact-person strong {
   color: #fff;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.95rem;
 }
 
 .footer__contact-person em {
   font-style: normal;
   color: var(--champagne);
-  font-size: 0.75rem;
+  font-size: 0.82rem;
 }
 
 /* Icône SVG style DA */
 .footer__contact-svg {
   flex-shrink: 0;
-  color: rgba(186,144,83,0.65);
+  color: rgba(186,144,83,0.7);
+  width: 15px;
+  height: 15px;
 }
 
 .footer__contact-svg--accent {
   color: var(--gold);
+  width: 15px;
+  height: 15px;
 }
 
 /* Ligne téléphones / emails */
 .footer__contact-row {
   display: flex;
   align-items: flex-start;
-  gap: 0.65rem;
-  padding-top: 0.1rem;
+  gap: 0.75rem;
+  padding-top: 0.15rem;
 }
 
 .footer__contact-row-items {
   display: flex;
   flex-direction: column;
-  gap: 0.18rem;
+  gap: 0.28rem;
 }
 
 .footer__contact-row-items a {
-  color: rgba(246,240,230,.82);
-  font-size: 0.8rem;
+  color: rgba(246,240,230,.88);
+  font-size: 0.9rem;
   text-decoration: none;
   transition: color 0.2s, transform 0.2s;
   display: inline-block;
@@ -826,12 +1043,12 @@ footer { padding: 6.5rem var(--pad) 2rem; color: var(--ivory); background: var(-
 .footer__contact-cta {
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
-  margin-top: .35rem;
-  padding: .5rem 1.1rem;
+  gap: .6rem;
+  margin-top: .5rem;
+  padding: .6rem 1.3rem;
   color: var(--ebony);
   background: var(--gold);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   letter-spacing: .15em;
   text-transform: uppercase;
   font-weight: 600;
@@ -1858,7 +2075,7 @@ footer { padding: 6.5rem var(--pad) 2rem; color: var(--ivory); background: var(-
    ═══════════════════════════════════════════════════════ */
 .distinctions-expert-section {
   background: #E8D8BB;
-  padding: clamp(5rem, 8vw, 8rem) var(--pad) clamp(6rem, 10vw, 10rem);
+  padding: clamp(4rem, 6vw, 6rem) var(--pad) clamp(5rem, 8vw, 8rem);
 }
 
 .distinctions-expert-container {
