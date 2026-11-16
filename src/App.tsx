@@ -357,7 +357,6 @@ function HomePage() {
             </div>
           </div>
         </div>
-        <p className="photo-credit">Visuel d’ambiance · Ato Aikins / Unsplash</p>
       </section>
 
       <CountdownSection />
@@ -366,7 +365,7 @@ function HomePage() {
         <div className="manifesto__intro">
           <div className="manifesto__meta">
             <Eyebrow>Le manifeste</Eyebrow>
-            <p className="manifesto__tag">Institution Panafricaine<br /><span>Racines & Couronnes · 2026</span></p>
+            <p className="manifesto__tag">Plateforme Panafricaine<br /><span>Racines & Couronnes · 2026</span></p>
           </div>
           <Reveal><h2>ET SI L’AFRIQUE<br />ÉCRIVAIT SA GRANDEUR<br /><em>AU FÉMININ ?</em></h2></Reveal>
           <p className="manifesto__lead-note">
@@ -382,11 +381,10 @@ function HomePage() {
                 <strong>L’Afrique éduque ses filles, élève ses reines.</strong>
               </div>
             </div>
-            <figcaption>Visuel d’ambiance · Godfred Kwakye / Unsplash</figcaption>
           </figure>
           <div className="manifesto__copy">
             <p className="dropcap">Les Linguères Awards célèbrent celles qui transforment, transmettent et ouvrent des voies nouvelles.</p>
-            <p>Une institution panafricaine dédiée à l’excellence féminine, où les héritages deviennent des forces et l’éducation une promesse d’avenir. À travers le continent et sa diaspora, nous honorons les femmes qui façonnent durablement notre époque.</p>
+            <p>Une plateforme panafricaine dédiée à l’excellence féminine, où les héritages deviennent des forces et l’éducation une promesse d’avenir. À travers le continent et sa diaspora, nous honorons les femmes qui façonnent durablement notre époque.</p>
             <blockquote>
               <span>La devise des Linguères</span>
               « Une femme enracinée<br />peut porter toutes les couronnes. »
@@ -485,7 +483,6 @@ function HomePage() {
             </div>
           </div>
         </div>
-        <p className="photo-credit">Linguères Awards · #AfricaEducatesHer</p>
       </section>
 
       <section className="faces section">
@@ -520,7 +517,7 @@ function HomePage() {
 
 const pageData: Record<string, { eyebrow: string; title: ReactNode; intro: string; image: string; sections: [string, string][] }> = {
   '/evenement': {
-    eyebrow: 'L’institution',
+    eyebrow: 'La plateforme',
     title: (
       <>
         L’AFRIQUE ÉCRIT<br />
