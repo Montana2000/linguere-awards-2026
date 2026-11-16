@@ -1894,6 +1894,13 @@ footer { padding: 6.5rem var(--pad) 2rem; color: var(--ivory); background: var(-
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Recadrage ciblé pour les portraits décentrés */
+img[src*="Colette"],
+img[alt*="Colette"],
+img[alt*="COLETTE"] {
+  object-position: 75% 20% !important;
+}
+
 .nominee-card:hover .nominee-card__image {
   transform: scale(1.06);
 }

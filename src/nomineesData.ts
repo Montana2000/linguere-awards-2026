@@ -9,6 +9,7 @@ export interface Nominee {
   categoryCode: string
   fileName: string
   photoUrl: string
+  imagePosition?: string
 }
 
 export const CATEGORIES = [
@@ -76,7 +77,7 @@ function resolvePhotoUrl(fileName: string): string {
 export const NOMINEES_RAW = [
   // CATÉGORIE 01 — AfricaEducatesHer (Prix d'Excellence dans l'éducation)
   { id: 1, name: 'Adama Diallo', category: 'AfricaEducatesHer', categoryNumber: '01', categoryCode: 'EDU', fileName: 'ADAMA DIALLO.jpg' },
-  { id: 2, name: 'Dr COLETTE MANE ALLAGBE', category: 'AfricaEducatesHer', categoryNumber: '01', categoryCode: 'EDU', fileName: 'Colette MANE ALLAGBE.jpg' },
+  { id: 2, name: 'Dr COLETTE MANE ALLAGBE', category: 'AfricaEducatesHer', categoryNumber: '01', categoryCode: 'EDU', fileName: 'Colette MANE ALLAGBE.jpg', imagePosition: '75% 20%' },
   { id: 3, name: 'Fatou Diene', category: 'AfricaEducatesHer', categoryNumber: '01', categoryCode: 'EDU', fileName: 'Fatou DIENE.png' },
   { id: 4, name: 'Elvy Gotiene', category: 'AfricaEducatesHer', categoryNumber: '01', categoryCode: 'EDU', fileName: 'ELVY GOTIENE. - Elvy GOTIENE.png' },
 

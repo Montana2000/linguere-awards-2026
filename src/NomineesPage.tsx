@@ -315,6 +315,7 @@ export default function NomineesPage({
                                 <img
                                   src={nominee.photoUrl}
                                   alt=""
+                                  style={nominee.imagePosition ? { objectPosition: nominee.imagePosition } : undefined}
                                   loading="lazy"
                                   onError={(e) => {
                                     (e.target as HTMLElement).style.display = 'none'
@@ -453,6 +454,7 @@ function NomineeCard({
           src={imgError ? fallbackSvg : nominee.photoUrl}
           alt={`Photographie de ${nominee.name} — Nominée ${nominee.category}`}
           className="nominee-card__image"
+          style={nominee.imagePosition ? { objectPosition: nominee.imagePosition } : undefined}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
           onError={() => setImgError(true)}
