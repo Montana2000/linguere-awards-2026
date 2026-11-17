@@ -330,7 +330,21 @@ export default function NomineesPage({
                                   Cat. {nominee.categoryNumber} · {nominee.category}
                                 </span>
                               </div>
-                              <span className="nominees-suggestion-arrow" aria-hidden="true">↗</span>
+                              <span className="nominees-suggestion-arrow" aria-hidden="true">
+                                <svg
+                                  viewBox="0 0 14 14"
+                                  width="0.85em"
+                                  height="0.85em"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="1.6"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  style={{ display: 'inline-block', verticalAlign: '-0.05em' }}
+                                >
+                                  <path d="M3 11L11 3M11 3H5M11 3V9" />
+                                </svg>
+                              </span>
                             </li>
                           )
                         })}

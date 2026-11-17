@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 import NomineesPage from './NomineesPage'
 import JuryPage from './JuryPage'
 import logoLinguere from '../LOGO LINGUERE.png'
@@ -76,8 +77,24 @@ function Logo({ dark = false }: { dark?: boolean }) {
   )
 }
 
-function Arrow() {
-  return <span className="arrow" aria-hidden="true">↗</span>
+export function Arrow({ className = '' }: { className?: string }) {
+  return (
+    <span className={`arrow ${className}`} aria-hidden="true">
+      <svg
+        viewBox="0 0 14 14"
+        width="0.85em"
+        height="0.85em"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        style={{ display: 'inline-block', verticalAlign: '-0.05em' }}
+      >
+        <path d="M3 11L11 3M11 3H5M11 3V9" />
+      </svg>
+    </span>
+  )
 }
 
 function ButtonLink({ href, children, light = false }: { href: string; children: ReactNode; light?: boolean }) {
@@ -103,40 +120,104 @@ function Header({ forceDark = false, currentPath }: { forceDark?: boolean; curre
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Verrouiller le scroll de la page lorsque le menu mobile est ouvert
+  useEffect(() => {
+    if (open) {
+      const prevOverflow = document.body.style.overflow
+      const prevTouchAction = document.body.style.touchAction
+      document.body.style.overflow = 'hidden'
+      document.body.style.touchAction = 'none'
+      return () => {
+        document.body.style.overflow = prevOverflow
+        document.body.style.touchAction = prevTouchAction
+      }
+    }
+  }, [open])
+
+  // Fermer le menu sur la touche Échap
+  useEffect(() => {
+    if (!open) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [open])
+
   const activePath = currentPath ?? (typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') || '/' : '/')
 
-  return (
-    <header className={`site-header ${scrolled || forceDark ? 'site-header--solid' : ''}`}>
-      <Logo />
-      <nav className="nav-desktop" aria-label="Navigation principale">
-        {navItems.slice(0, 7).map(([label, href]) => {
+  const mobileMenuContent = (
+    <div
+      className={`mobile-menu ${open ? 'mobile-menu--open' : ''}`}
+      aria-hidden={!open}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Navigation mobile"
+    >
+      <div className="mobile-menu__top">
+        <Logo />
+        <button
+          type="button"
+          className="mobile-menu__close"
+          onClick={() => setOpen(false)}
+          aria-label="Fermer le menu"
+        >
+          <span>Fermer</span>
+          <span className="mobile-menu__close-icon" aria-hidden="true">✕</span>
+        </button>
+      </div>
+
+      <nav aria-label="Navigation mobile">
+        {navItems.map(([label, href], index) => {
           const isActive = href === '/' ? activePath === '/' : activePath === href
           return (
-            <a key={href} href={href} className={isActive ? 'active' : ''}>
-              {label}
+            <a
+              href={href}
+              key={href}
+              className={isActive ? 'active' : ''}
+              onClick={() => setOpen(false)}
+            >
+              <small>0{index + 1}</small>
+              <span>{label}</span>
             </a>
           )
         })}
       </nav>
-      <a className="header-contact" href="#contact">Nous contacter <Arrow /></a>
-      <button className="menu-toggle" type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Ouvrir le menu">
-        <span /><span />
-      </button>
-      <div className={`mobile-menu ${open ? 'mobile-menu--open' : ''}`} aria-hidden={!open}>
-        <div className="mobile-menu__top"><Logo /><button type="button" onClick={() => setOpen(false)} aria-label="Fermer le menu">Fermer</button></div>
-        <nav aria-label="Navigation mobile">
-          {navItems.map(([label, href], index) => {
+
+      <div className="mobile-menu__footer">
+        <p>Racines & Couronnes<br />L’Afrique élève ses reines.</p>
+        <span className="mobile-menu__edition">Édition 2026</span>
+      </div>
+    </div>
+  )
+
+  return (
+    <>
+      <header className={`site-header ${scrolled || forceDark ? 'site-header--solid' : ''}`}>
+        <Logo />
+        <nav className="nav-desktop" aria-label="Navigation principale">
+          {navItems.slice(0, 7).map(([label, href]) => {
             const isActive = href === '/' ? activePath === '/' : activePath === href
             return (
-              <a href={href} key={href} className={isActive ? 'active' : ''} onClick={() => setOpen(false)}>
-                <small>0{index + 1}</small>{label}<Arrow />
+              <a key={href} href={href} className={isActive ? 'active' : ''}>
+                {label}
               </a>
             )
           })}
         </nav>
-        <p>Racines & Couronnes<br />L’Afrique élève ses reines.</p>
-      </div>
-    </header>
+        <a className="header-contact" href="#contact">Nous contacter <Arrow /></a>
+        <button
+          className="menu-toggle"
+          type="button"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+        >
+          <span /><span />
+        </button>
+      </header>
+      {typeof document !== 'undefined' ? createPortal(mobileMenuContent, document.body) : null}
+    </>
   )
 }
 

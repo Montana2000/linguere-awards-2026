@@ -9,8 +9,24 @@ interface JuryPageProps {
   heroImage: string
 }
 
-function Arrow() {
-  return <span className="arrow" aria-hidden="true">↗</span>
+function Arrow({ className = '' }: { className?: string }) {
+  return (
+    <span className={`arrow ${className}`} aria-hidden="true">
+      <svg
+        viewBox="0 0 14 14"
+        width="0.85em"
+        height="0.85em"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        style={{ display: 'inline-block', verticalAlign: '-0.05em' }}
+      >
+        <path d="M3 11L11 3M11 3H5M11 3V9" />
+      </svg>
+    </span>
+  )
 }
 
 export default function JuryPage({
